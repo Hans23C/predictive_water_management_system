@@ -1,10 +1,9 @@
 // APARTADO: Componente de la aplicación: credenciales demostracion con acceso en 1 clic
-// Este archivo está identificado en español para facilitar su ubicación y mantenimiento.
+// Diseñado para personas poco familiarizadas con contraseñas: permite entrar de inmediato tocando una tarjeta.
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../theme/tema_aplicacion.dart';
 import '../../../widgets/liquid_glass_container.dart';
@@ -23,32 +22,22 @@ class DemoCredentialsWidget extends StatelessWidget {
     {
       'role': 'Administrador General',
       'title': 'Ingresar como Administrador',
-      'subtitle': 'Gobernanza del recurso hídrico, analítica predictiva y reportes',
+      'subtitle': 'Para supervisores y directores: ver gráficas generales de consumo y alertas del campus.',
+      'tag': '1 Clic · Modo Director',
       'email': 'admin@aquacampus.edu.co',
       'password': 'Admin#2024',
       'icon': 'admin',
     },
     {
       'role': 'Personal de Mantenimiento',
-      'title': 'Ingresar como Mantenimiento',
-      'subtitle': 'Control de bombeo, regulación de presiones y atención técnica',
+      'title': 'Ingresar como Técnico',
+      'subtitle': 'Para personal de campo: monitorear bombas de agua, presiones y reportes de fugas.',
+      'tag': '1 Clic · Modo Operador',
       'email': 'mantenimiento@aquacampus.edu.co',
       'password': 'Mant#2024',
       'icon': 'maintenance',
     },
   ];
-
-  void _copyToClipboard(BuildContext context, String value, String label) {
-    Clipboard.setData(ClipboardData(text: value));
-    Fluttertoast.showToast(
-      msg: '$label copiado al portapapeles',
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: AppTheme.primary,
-      textColor: Colors.white,
-      fontSize: 12.5,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +54,7 @@ class DemoCredentialsWidget extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(9),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: isDark
@@ -75,16 +64,16 @@ class DemoCredentialsWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF0EA5E9).withAlpha(40),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
+                      color: const Color(0xFF0EA5E9).withAlpha(45),
+                      blurRadius: 10,
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
                 child: const Icon(
-                  Icons.vpn_key_rounded,
+                  Icons.touch_app_rounded,
                   color: Colors.white,
-                  size: 17,
+                  size: 20,
                 ),
               ),
               const SizedBox(width: 12),
@@ -93,18 +82,18 @@ class DemoCredentialsWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Acceso Rápido en 1 Clic',
+                      'Acceso Rápido en 1 Toque',
                       style: GoogleFonts.plusJakartaSans(
-                        fontSize: 14.5,
-                        fontWeight: FontWeight.w700,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w800,
                         color: theme.colorScheme.onSurface,
                         letterSpacing: -0.2,
                       ),
                     ),
                     Text(
-                      'Selecciona un perfil para ingresar sin escribir credenciales',
+                      '¿No quieres escribir? Toca una opción para entrar directamente:',
                       style: GoogleFonts.plusJakartaSans(
-                        fontSize: 11.5,
+                        fontSize: 12,
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
                     ),
@@ -124,130 +113,121 @@ class DemoCredentialsWidget extends StatelessWidget {
 
             return Padding(
               padding: EdgeInsets.only(
-                bottom: i < _demoAccounts.length - 1 ? 12 : 0,
+                bottom: i < _demoAccounts.length - 1 ? 14 : 0,
               ),
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () {
+                    HapticFeedback.lightImpact();
                     if (onQuickLogin != null) {
                       onQuickLogin!(account['email']!, account['password']!);
                     } else if (onSelectAccount != null) {
                       onSelectAccount!(account['email']!, account['password']!);
                     }
                   },
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(18),
                   child: Container(
                     decoration: BoxDecoration(
                       color: isDark
-                          ? const Color(0xFF131F2E).withAlpha(160)
-                          : Colors.white.withAlpha(200),
-                      borderRadius: BorderRadius.circular(16),
+                          ? const Color(0xFF132235).withAlpha(200)
+                          : Colors.white.withAlpha(230),
+                      borderRadius: BorderRadius.circular(18),
                       border: Border.all(
-                        color: roleColor.withAlpha(isDark ? 90 : 60),
-                        width: 1.2,
+                        color: roleColor.withAlpha(isDark ? 110 : 80),
+                        width: 1.5,
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: roleColor.withAlpha(isDark ? 20 : 12),
-                          blurRadius: 10,
-                          offset: const Offset(0, 3),
+                          color: roleColor.withAlpha(isDark ? 28 : 16),
+                          blurRadius: 12,
+                          offset: const Offset(0, 4),
                         ),
                       ],
                     ),
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                     child: Row(
                       children: [
                         Container(
-                          width: 42,
-                          height: 42,
+                          width: 46,
+                          height: 46,
                           decoration: BoxDecoration(
-                            color: roleColor.withAlpha(25),
-                            borderRadius: BorderRadius.circular(12),
+                            color: roleColor.withAlpha(30),
+                            borderRadius: BorderRadius.circular(14),
                             border: Border.all(
-                              color: roleColor.withAlpha(50),
-                              width: 1,
+                              color: roleColor.withAlpha(70),
+                              width: 1.2,
                             ),
                           ),
                           child: Icon(
                             isAdmin
                                 ? Icons.admin_panel_settings_rounded
                                 : Icons.engineering_rounded,
-                            size: 22,
+                            size: 24,
                             color: roleColor,
                           ),
                         ),
-                        const SizedBox(width: 12),
+                        const SizedBox(width: 14),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                account['title']!,
-                                style: GoogleFonts.plusJakartaSans(
-                                  fontSize: 13.5,
-                                  fontWeight: FontWeight.w700,
-                                  color: theme.colorScheme.onSurface,
-                                ),
+                              Row(
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      account['title']!,
+                                      style: GoogleFonts.plusJakartaSans(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w800,
+                                        color: theme.colorScheme.onSurface,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 6),
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                      vertical: 2,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: roleColor.withAlpha(25),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Text(
+                                      account['tag']!,
+                                      style: GoogleFonts.plusJakartaSans(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w700,
+                                        color: roleColor,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(height: 2),
+                              const SizedBox(height: 4),
                               Text(
                                 account['subtitle']!,
                                 style: GoogleFonts.plusJakartaSans(
-                                  fontSize: 11,
+                                  fontSize: 11.5,
                                   color: theme.colorScheme.onSurfaceVariant,
-                                  height: 1.2,
+                                  height: 1.3,
                                 ),
                               ),
                             ],
                           ),
                         ),
                         const SizedBox(width: 8),
-                        FilledButton(
-                          onPressed: () {
-                            if (onQuickLogin != null) {
-                              onQuickLogin!(account['email']!, account['password']!);
-                            } else if (onSelectAccount != null) {
-                              onSelectAccount!(account['email']!, account['password']!);
-                            }
-                          },
-                          style: FilledButton.styleFrom(
-                            backgroundColor: roleColor,
-                            foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 9),
-                            minimumSize: Size.zero,
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            elevation: 0,
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                'Entrar',
-                                style: GoogleFonts.plusJakartaSans(
-                                  fontSize: 11.5,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              const SizedBox(width: 4),
-                              const Icon(Icons.arrow_forward_rounded, size: 13),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 2),
-                        IconButton(
-                          icon: const Icon(Icons.copy_rounded, size: 15),
-                          color: theme.colorScheme.onSurfaceVariant,
-                          tooltip: 'Copiar correo',
-                          constraints: const BoxConstraints(),
+                        Container(
                           padding: const EdgeInsets.all(6),
-                          onPressed: () => _copyToClipboard(
-                            context,
-                            account['email']!,
-                            'Correo de ${account['role']}',
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: roleColor.withAlpha(20),
+                          ),
+                          child: Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 14,
+                            color: roleColor,
                           ),
                         ),
                       ],
@@ -257,38 +237,24 @@ class DemoCredentialsWidget extends StatelessWidget {
               ),
             );
           }),
-          const SizedBox(height: 16),
 
-          // Tarjeta de concientización hídrica profesional
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
-            decoration: BoxDecoration(
-              color: (isDark ? const Color(0xFF0EA5E9) : const Color(0xFF0284C7))
-                  .withAlpha(isDark ? 22 : 14),
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(
-                color: (isDark ? const Color(0xFF38BDF8) : const Color(0xFF0284C7))
-                    .withAlpha(isDark ? 50 : 35),
-                width: 1,
-              ),
-            ),
+          const SizedBox(height: 14),
+          // Nota de transparencia con opción de copiar si se desea
+          Center(
             child: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
-                  Icons.water_drop_rounded,
-                  size: 20,
-                  color: isDark ? const Color(0xFF38BDF8) : const Color(0xFF0284C7),
+                  Icons.info_outline_rounded,
+                  size: 14,
+                  color: theme.colorScheme.onSurfaceVariant.withAlpha(150),
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    'Preservar el agua no es solo una tarea técnica, es un compromiso con el futuro de nuestra comunidad.',
-                    style: GoogleFonts.plusJakartaSans(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w500,
-                      color: isDark ? const Color(0xFFBAE6FD) : const Color(0xFF0369A1),
-                      height: 1.35,
-                    ),
+                const SizedBox(width: 6),
+                Text(
+                  'Datos cargados con lecturas simuladas del campus',
+                  style: GoogleFonts.plusJakartaSans(
+                    fontSize: 11,
+                    color: theme.colorScheme.onSurfaceVariant.withAlpha(180),
                   ),
                 ),
               ],

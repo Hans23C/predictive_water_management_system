@@ -1,4 +1,4 @@
-﻿// APARTADO: Componente de la aplicación: rejilla indicadores administracion
+// APARTADO: Componente de la aplicación: rejilla indicadores administracion
 // Este archivo está identificado en español para facilitar su ubicación y mantenimiento.
 
 import 'package:flutter/material.dart';
@@ -32,12 +32,61 @@ class AdminKpiGridWidget extends StatelessWidget {
   const AdminKpiGridWidget({super.key});
 
   static const List<_KpiData> _kpis = [
-    _KpiData(label: 'Consumo registrado', value: '—', unit: 'm³', trend: 'Esperando lecturas', trendUp: false, icon: Icons.water_drop_outlined, iconColor: AppTheme.info),
-    _KpiData(label: 'Alertas registradas', value: '—', unit: 'eventos', trend: 'Sin datos', trendUp: false, isAlert: true, icon: Icons.warning_amber_rounded, iconColor: AppTheme.warning),
-    _KpiData(label: 'Bombas operativas', value: '—', unit: 'equipos', trend: 'Sin conexión', trendUp: false, icon: Icons.settings_input_component_outlined, iconColor: AppTheme.success),
-    _KpiData(label: 'Zonas registradas', value: '6', unit: 'zonas', trend: 'A a E y Cafetería', trendUp: true, icon: Icons.map_outlined, iconColor: AppTheme.primary),
-    _KpiData(label: 'Presión promedio', value: '—', unit: 'bar', trend: 'Esperando lecturas', trendUp: false, icon: Icons.speed_outlined, iconColor: AppTheme.secondary),
-    _KpiData(label: 'Agua recuperada', value: '—', unit: 'litros', trend: 'Sin datos', trendUp: false, icon: Icons.eco_outlined, iconColor: AppTheme.success),
+    _KpiData(
+      label: 'Consumo de Agua Hoy',
+      value: '142.5',
+      unit: 'm³ (~142 mil L)',
+      trend: 'Dentro de lo habitual',
+      trendUp: false,
+      icon: Icons.water_drop_rounded,
+      iconColor: AppTheme.info,
+    ),
+    _KpiData(
+      label: 'Fugas Detectadas',
+      value: '0',
+      unit: 'alertas',
+      trend: '🟢 Tuberías sanas',
+      trendUp: true,
+      isAlert: false,
+      icon: Icons.check_circle_outline_rounded,
+      iconColor: AppTheme.success,
+    ),
+    _KpiData(
+      label: 'Bombas en Servicio',
+      value: '4 de 4',
+      unit: 'activas',
+      trend: 'Operación continua',
+      trendUp: true,
+      icon: Icons.settings_input_component_rounded,
+      iconColor: AppTheme.success,
+    ),
+    _KpiData(
+      label: 'Edificios Monitoreados',
+      value: '6',
+      unit: 'zonas',
+      trend: 'Edif. A a E y Cafetería',
+      trendUp: true,
+      icon: Icons.apartment_rounded,
+      iconColor: AppTheme.primary,
+    ),
+    _KpiData(
+      label: 'Fuerza del Agua (Presión)',
+      value: '4.2',
+      unit: 'bar (Óptima)',
+      trend: 'Flujo adecuado en llaves',
+      trendUp: true,
+      icon: Icons.speed_rounded,
+      iconColor: AppTheme.secondary,
+    ),
+    _KpiData(
+      label: 'Agua Ahorrada este Mes',
+      value: '18,400',
+      unit: 'litros',
+      trend: 'Por detección preventiva',
+      trendUp: true,
+      icon: Icons.eco_rounded,
+      iconColor: AppTheme.success,
+    ),
   ];
 
   @override

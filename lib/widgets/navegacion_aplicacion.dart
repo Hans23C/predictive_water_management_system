@@ -32,33 +32,33 @@ class _AppNavigationState extends State<AppNavigation> {
 
   static const List<_TabSpec> _tabs = [
     _TabSpec(
-      label: 'Admin',
-      icon: Icons.dashboard_outlined,
-      selectedIcon: Icons.dashboard_rounded,
+      label: 'Inicio',
+      icon: Icons.home_outlined,
+      selectedIcon: Icons.home_rounded,
       branchIndex: 0,
     ),
     _TabSpec(
-      label: 'Mantenimiento',
-      icon: Icons.build_outlined,
-      selectedIcon: Icons.build_rounded,
+      label: 'Bombas',
+      icon: Icons.water_drop_outlined,
+      selectedIcon: Icons.water_drop_rounded,
       branchIndex: 1,
     ),
     _TabSpec(
-      label: 'Zonas',
+      label: 'Edificios',
       icon: Icons.apartment_outlined,
       selectedIcon: Icons.apartment_rounded,
       branchIndex: 2,
     ),
     _TabSpec(
-      label: 'Reportes',
-      icon: Icons.assignment_outlined,
-      selectedIcon: Icons.assignment_rounded,
+      label: 'Reportar',
+      icon: Icons.campaign_outlined,
+      selectedIcon: Icons.campaign_rounded,
       branchIndex: 3,
     ),
     _TabSpec(
-      label: 'Ajustes',
-      icon: Icons.settings_outlined,
-      selectedIcon: Icons.settings_rounded,
+      label: 'Ayuda',
+      icon: Icons.help_center_outlined,
+      selectedIcon: Icons.help_center_rounded,
       branchIndex: 4,
     ),
   ];

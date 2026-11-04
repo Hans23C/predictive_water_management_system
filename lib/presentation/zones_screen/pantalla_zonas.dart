@@ -1,4 +1,4 @@
-﻿// APARTADO: Pantalla oficial de Zonas (Edificios del Campus con Bombas y Flujo en Vivo)
+// APARTADO: Pantalla oficial de Zonas (Edificios del Campus con Bombas y Flujo en Vivo)
 // Este archivo está identificado en español para facilitar su ubicación y mantenimiento.
 
 import 'package:flutter/material.dart';
@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../theme/tema_aplicacion.dart';
 import '../../widgets/barra_superior_aplicacion.dart';
+import '../../widgets/guia_rapida_dialogo.dart';
 import '../../widgets/liquid_glass_container.dart';
 
 class _BuildingPump {
@@ -173,9 +174,16 @@ class _ZonesScreenState extends State<ZonesScreen>
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: const AppBarWidget(
+      appBar: AppBarWidget(
         title: 'Zonas y Edificios del Campus',
         subtitle: 'Telemetría de Bombas y Flujos por Edificio',
+        actions: [
+          AppBarActionButton(
+            tooltip: 'Guía de ayuda',
+            onPressed: () => GuiaRapidaDialogo.show(context),
+            icon: Icons.help_outline_rounded,
+          ),
+        ],
       ),
       body: SafeArea(
         top: false,

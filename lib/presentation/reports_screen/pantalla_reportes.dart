@@ -1,4 +1,4 @@
-﻿// APARTADO: Pantalla bidireccional de Reportes (Mantenimiento reporta, Administrador responde)
+// APARTADO: Pantalla bidireccional de Reportes (Mantenimiento reporta, Administrador responde)
 // Este archivo está identificado en español para facilitar su ubicación y mantenimiento.
 
 import 'dart:convert';
@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../theme/tema_aplicacion.dart';
 import '../../widgets/barra_superior_aplicacion.dart';
+import '../../widgets/guia_rapida_dialogo.dart';
 import '../../widgets/liquid_glass_container.dart';
 
 class CampusReport {
@@ -203,6 +204,13 @@ class _ReportsScreenState extends State<ReportsScreen> {
         subtitle: isAdmin
             ? 'Panel de Administración · Responder y autorizar'
             : 'Personal de Mantenimiento · Registrar y dar seguimiento',
+        actions: [
+          AppBarActionButton(
+            tooltip: 'Guía de ayuda',
+            onPressed: () => GuiaRapidaDialogo.show(context),
+            icon: Icons.help_outline_rounded,
+          ),
+        ],
       ),
       body: SafeArea(
         top: false,

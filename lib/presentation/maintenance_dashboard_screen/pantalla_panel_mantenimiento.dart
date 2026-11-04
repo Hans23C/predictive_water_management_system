@@ -1,4 +1,4 @@
-﻿// APARTADO: Panel principal del personal de mantenimiento responsivo y adaptativo
+// APARTADO: Panel principal del personal de mantenimiento responsivo y adaptativo
 // Este archivo está identificado en español para facilitar su ubicación y mantenimiento.
 
 import 'package:flutter/material.dart';
@@ -10,6 +10,7 @@ import '../../theme/tema_aplicacion.dart';
 import '../../widgets/barra_superior_aplicacion.dart';
 import '../../widgets/boton_registrar_incidente_animado.dart';
 import '../../widgets/animaciones_sistema_agua.dart';
+import '../../widgets/guia_rapida_dialogo.dart';
 import 'widgets/resumen_alertas_mantenimiento.dart';
 import 'widgets/grafica_presion_mantenimiento.dart';
 import 'widgets/lista_bombas_mantenimiento.dart';
@@ -58,6 +59,11 @@ class _MaintenanceDashboardScreenState
         title: 'Panel de Mantenimiento',
         subtitle: 'Turno activo — $firstName',
         actions: [
+          AppBarActionButton(
+            tooltip: 'Guía de ayuda',
+            onPressed: () => GuiaRapidaDialogo.show(context),
+            icon: Icons.help_outline_rounded,
+          ),
           AppBarActionButton(
             icon: Icons.refresh_rounded,
             onPressed: _handleRefresh,

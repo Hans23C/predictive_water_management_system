@@ -2,7 +2,10 @@
 // Este archivo está identificado en español para facilitar su ubicación y mantenimiento.
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../../routes/rutas_aplicacion.dart';
 import '../../theme/tema_aplicacion.dart';
 import '../../widgets/liquid_glass_container.dart';
 import './widgets/credenciales_demostracion.dart';
@@ -154,6 +157,21 @@ class _LoginScreenState extends State<LoginScreen> {
                               onSelectAccount: _fillCredentials,
                               onQuickLogin: _executeQuickLogin,
                             ),
+                            const SizedBox(height: 18),
+                            TextButton.icon(
+                              onPressed: () => context.push(AppRoutes.onboardingScreen),
+                              icon: const Icon(Icons.help_outline_rounded, size: 18),
+                              label: Text(
+                                '¿Primera vez aquí? Ver presentación guiada',
+                                style: GoogleFonts.plusJakartaSans(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              style: TextButton.styleFrom(
+                                foregroundColor: theme.colorScheme.primary,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -185,6 +203,21 @@ class _LoginScreenState extends State<LoginScreen> {
                             DemoCredentialsWidget(
                               onSelectAccount: _fillCredentials,
                               onQuickLogin: _executeQuickLogin,
+                            ),
+                            const SizedBox(height: 16),
+                            TextButton.icon(
+                              onPressed: () => context.push(AppRoutes.onboardingScreen),
+                              icon: const Icon(Icons.help_outline_rounded, size: 18),
+                              label: Text(
+                                '¿Primera vez aquí? Ver presentación guiada',
+                                style: GoogleFonts.plusJakartaSans(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              style: TextButton.styleFrom(
+                                foregroundColor: theme.colorScheme.primary,
+                              ),
                             ),
                             const SizedBox(height: 36),
                           ],

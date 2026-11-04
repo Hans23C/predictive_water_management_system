@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../pantalla_presentacion.dart';
+import '../presentation/onboarding_screen/pantalla_introduccion_interactiva.dart';
 import '../presentation/login_screen/pantalla_inicio_sesion.dart';
 import '../presentation/admin_dashboard_screen/pantalla_panel_administracion.dart';
 import '../presentation/maintenance_dashboard_screen/pantalla_panel_mantenimiento.dart';
@@ -15,6 +16,7 @@ import '../widgets/estructura_pantalla.dart';
 
 class AppRoutes {
   static const String initial = '/';
+  static const String onboardingScreen = '/onboarding';
   static const String loginScreen = '/login-screen';
   static const String adminDashboardScreen = '/admin-dashboard-screen';
   static const String maintenanceDashboardScreen =
@@ -34,6 +36,17 @@ final GoRouter appRouter = GoRouter(
       ),
     ),
     GoRoute(
+      path: AppRoutes.onboardingScreen,
+      pageBuilder: (context, state) => CustomTransitionPage(
+        key: state.pageKey,
+        child: const OnboardingScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(opacity: animation, child: child);
+        },
+        transitionDuration: const Duration(milliseconds: 300),
+      ),
+    ),
+    GoRoute(
       path: AppRoutes.loginScreen,
       pageBuilder: (context, state) => CustomTransitionPage(
         key: state.pageKey,
@@ -49,7 +62,7 @@ final GoRouter appRouter = GoRouter(
         return AppScaffold(navigationShell: navigationShell);
       },
       branches: [
-        // Rama 0: Panel Admin
+        // Rama 0: Panel Principal / Inicio
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -59,7 +72,7 @@ final GoRouter appRouter = GoRouter(
             ),
           ],
         ),
-        // Rama 1: Panel Mantenimiento
+        // Rama 1: Panel de Bombas y Agua / Técnico
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -69,7 +82,7 @@ final GoRouter appRouter = GoRouter(
             ),
           ],
         ),
-        // Rama 2: Zonas y Edificios
+        // Rama 2: Edificios del Campus
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -79,7 +92,7 @@ final GoRouter appRouter = GoRouter(
             ),
           ],
         ),
-        // Rama 3: Reportes Bidireccionales
+        // Rama 3: Reportar Problema o Fuga
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -89,7 +102,7 @@ final GoRouter appRouter = GoRouter(
             ),
           ],
         ),
-        // Rama 4: Ajustes y Perfil
+        // Rama 4: Ayuda, Guía y Ajustes
         StatefulShellBranch(
           routes: [
             GoRoute(

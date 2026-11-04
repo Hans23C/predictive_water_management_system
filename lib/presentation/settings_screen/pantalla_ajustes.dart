@@ -1,12 +1,15 @@
-﻿// APARTADO: Pantalla de Ajustes y Perfil de Mantenimiento con Foto de Perfil
+// APARTADO: Pantalla de Ajustes y Perfil de Mantenimiento con Foto de Perfil
 // Este archivo está identificado en español para facilitar su ubicación y mantenimiento.
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../routes/rutas_aplicacion.dart';
 import '../../theme/tema_aplicacion.dart';
 import '../../widgets/barra_superior_aplicacion.dart';
+import '../../widgets/guia_rapida_dialogo.dart';
 import '../../widgets/liquid_glass_container.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -279,6 +282,61 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 _profileStat('Teléfono', _phone),
                                 _profileStat('Guardia', '07:00 - 15:00'),
                               ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+
+                      // Centro de Aprendizaje y Ayuda para Principiantes
+                      _sectionTitle('Centro de Ayuda y Aprendizaje'),
+                      const SizedBox(height: 10),
+                      LiquidGlassContainer(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          children: [
+                            ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              leading: Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: theme.colorScheme.primary.withAlpha(25),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Icon(Icons.school_rounded, color: theme.colorScheme.primary),
+                              ),
+                              title: Text(
+                                'Ver Presentación y Tutorial Guiado',
+                                style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w700),
+                              ),
+                              subtitle: Text(
+                                'Vuelve a ver la explicación de 4 pasos sobre cómo funciona la app.',
+                                style: GoogleFonts.plusJakartaSans(fontSize: 12),
+                              ),
+                              trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 15),
+                              onTap: () => context.push(AppRoutes.onboardingScreen),
+                            ),
+                            const Divider(height: 1),
+                            ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              leading: Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF10B981).withAlpha(25),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: const Icon(Icons.help_outline_rounded, color: Color(0xFF10B981)),
+                              ),
+                              title: Text(
+                                'Guía Rápida: ¿Cómo interpretar los datos?',
+                                style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w700),
+                              ),
+                              subtitle: Text(
+                                'Explicación sencilla de qué significan los niveles, presiones y bombas.',
+                                style: GoogleFonts.plusJakartaSans(fontSize: 12),
+                              ),
+                              trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 15),
+                              onTap: () => GuiaRapidaDialogo.show(context),
                             ),
                           ],
                         ),

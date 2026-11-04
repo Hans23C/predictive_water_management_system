@@ -1,4 +1,4 @@
-﻿// APARTADO: Panel principal del administrador responsivo y adaptativo
+// APARTADO: Panel principal del administrador responsivo y adaptativo
 // Este archivo está identificado en español para facilitar su ubicación y mantenimiento.
 
 import 'package:flutter/material.dart';
@@ -10,6 +10,7 @@ import '../../services/registro_agua_service.dart';
 import '../../theme/tema_aplicacion.dart';
 import '../../widgets/barra_superior_aplicacion.dart';
 import '../../widgets/animaciones_sistema_agua.dart';
+import '../../widgets/guia_rapida_dialogo.dart';
 import './widgets/lista_alertas_administracion.dart';
 import './widgets/grafica_consumo_administracion.dart';
 import './widgets/rejilla_indicadores_administracion.dart';
@@ -85,6 +86,11 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
         subtitle: '$_greeting, $firstName',
         actions: [
           AppBarActionButton(
+            tooltip: 'Guía rápida y ayuda',
+            onPressed: () => GuiaRapidaDialogo.show(context),
+            icon: Icons.help_outline_rounded,
+          ),
+          AppBarActionButton(
             tooltip: 'Exportar registros a Excel',
             onPressed: _exportarExcel,
             icon: Icons.file_download_outlined,
@@ -144,6 +150,8 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        const _SemaforoCampusBanner(),
+        const SizedBox(height: 14),
         const _AvisoDatosDemostracion(),
         const SizedBox(height: 14),
         _SectionHeader(
@@ -165,7 +173,10 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
         const SizedBox(height: 12),
         const AdminZoneStatusWidget(),
         const SizedBox(height: 20),
-        const _SectionHeader(title: 'Análisis de Agrupamiento (K-Means)'),
+        const _SectionHeader(
+          title: 'Comportamiento de Edificios',
+          subtitle: 'Agrupamiento inteligente por nivel de gasto y ahorro',
+        ),
         const SizedBox(height: 12),
         const AnalisisClusteringZonas(),
         const SizedBox(height: 24),
@@ -180,6 +191,8 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        const _SemaforoCampusBanner(),
+        const SizedBox(height: 16),
         const _AvisoDatosDemostracion(),
         const SizedBox(height: 16),
         Row(
@@ -219,7 +232,10 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                   SizedBox(height: 12),
                   AdminZoneStatusWidget(),
                   SizedBox(height: 20),
-                  _SectionHeader(title: 'Análisis de Agrupamiento (K-Means)'),
+                  _SectionHeader(
+                    title: 'Comportamiento de Edificios',
+                    subtitle: 'Agrupamiento inteligente por gasto y ahorro',
+                  ),
                   SizedBox(height: 12),
                   AnalisisClusteringZonas(),
                   SizedBox(height: 24),
@@ -232,6 +248,99 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
           ],
         ),
       ],
+    );
+  }
+}
+
+class _SemaforoCampusBanner extends StatelessWidget {
+  const _SemaforoCampusBanner();
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = AppTheme.isDark(context);
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: isDark
+              ? [const Color(0xFF064E3B), const Color(0xFF065F46)]
+              : [const Color(0xFFECFDF5), const Color(0xFFD1FAE5)],
+        ),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: const Color(0xFF10B981).withAlpha(isDark ? 100 : 160),
+          width: 1.5,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF10B981).withAlpha(isDark ? 25 : 15),
+            blurRadius: 10,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 44,
+            height: 44,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: const Color(0xFF10B981).withAlpha(isDark ? 50 : 35),
+            ),
+            child: const Icon(
+              Icons.check_circle_rounded,
+              color: Color(0xFF10B981),
+              size: 28,
+            ),
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      'Semáforo del Campus: ',
+                      style: GoogleFonts.plusJakartaSans(
+                        fontSize: 13.5,
+                        fontWeight: FontWeight.w700,
+                        color: isDark ? Colors.white : const Color(0xFF065F46),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF10B981),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        '🟢 NORMAL',
+                        style: GoogleFonts.plusJakartaSans(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'El suministro está garantizado en todos los edificios. No hay fugas activas ni problemas de presión.',
+                  style: GoogleFonts.plusJakartaSans(
+                    fontSize: 12,
+                    color: isDark ? const Color(0xFFA7F3D0) : const Color(0xFF047857),
+                    height: 1.3,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
